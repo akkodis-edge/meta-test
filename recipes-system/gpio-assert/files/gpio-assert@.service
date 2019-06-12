@@ -1,0 +1,10 @@
+[Unit]
+Description=Service for asserting GPIO at boot
+Requires=local-fs.target
+After=local-fs.target
+
+[Service]
+ExecStart=%s -c "/bin/echo 1 > /sys/class/gpio/%i/value"
+
+[Install]
+WantedBy=multi-user.target
