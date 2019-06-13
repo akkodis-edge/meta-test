@@ -62,7 +62,7 @@ if __name__ == '__main__':
             if not root_path:
                 mount_point = tempfile.TemporaryDirectory()
                 root_path = mount_point.name
-                subprocess.run(['mount' ,'-o', '-ro', args.partition, root_path], check=True)
+                subprocess.run(['mount' ,'-o', 'ro', args.partition, root_path], check=True)
                 unmount = True
         
         
