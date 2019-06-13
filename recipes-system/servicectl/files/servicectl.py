@@ -88,7 +88,7 @@ if __name__ == '__main__':
             
         
         if not error:
-            sys.exit(1)
+            sys.exit(0)
         
     except subprocess.CalledProcessError as e:
         print('{} [{}]: {}'.format(e.cmd, e.returncode, e.output))
