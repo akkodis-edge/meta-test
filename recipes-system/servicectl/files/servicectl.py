@@ -17,7 +17,7 @@ Journal is extracted in "Journal Export Format", to operate on log through journ
 to be converted back to journal format first.
 
 Convert export to journal:
-$ cat systemd-journal-export | systemd-journal-remote -o systemd.journal
+$ cat systemd-journal-export | systemd-journal-remote -o systemd.journal -
 
 Using journal file:
 $ journalctl --file=systemd.journal
