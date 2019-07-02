@@ -4,13 +4,13 @@ LIC_FILES_CHKSUM = "file://${COMMON_LICENSE_DIR}/MIT;md5=0835ade698e0bcf8506ecda
 
 inherit python3-dir
 
-SRCREV ?= "bda8de40322ce43f02a689122bd315f7bc258dc0"
+SRCREV ?= "34bbd9b834c8ebea2d141df825a62983a8d4e9d5"
 SRC_URI = "git://git@bitbucket.datarespons.com:7999/ms/test-framework.git;protocol=ssh;branch=${BRANCH}"
 BRANCH ?= "master"
 
 PV = "git${SRCPV}"
 S = "${WORKDIR}/git"
-RDEPENDS_${PN} += "python3 python3-core loopback-test stress"
+RDEPENDS_${PN} += "python3 python3-core loopback-test stress ibmtpm20tss"
 
 INSTALL_DIR = "${PYTHON_SITEPACKAGES_DIR}/test_framework"
 
