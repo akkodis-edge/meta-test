@@ -4,7 +4,7 @@ LIC_FILES_CHKSUM = "file://${COMMON_LICENSE_DIR}/MIT;md5=0835ade698e0bcf8506ecda
 
 inherit python3-dir
 
-SRCREV ?= "34bbd9b834c8ebea2d141df825a62983a8d4e9d5"
+SRCREV ?= "80b82eb67bf256f23f9171b4ec27f8565ca10f33"
 SRC_URI = "git://git@bitbucket.datarespons.com:7999/ms/test-framework.git;protocol=ssh;branch=${BRANCH}"
 BRANCH ?= "master"
 
@@ -12,16 +12,18 @@ PV = "git${SRCPV}"
 S = "${WORKDIR}/git"
 RDEPENDS_${PN} += "python3 python3-core loopback-test stress ibmtpm20tss"
 
-INSTALL_DIR = "${PYTHON_SITEPACKAGES_DIR}/test_framework"
+EXTRA_OEMAKE += "'DESTDIR=${D}' 'PREFIX=${exec_prefix}'"
+EXTRA_OEMAKE += "'PYTHON_VERSION=${PYTHON_BASEVERSION}'"
 
-do_install () {
-    install -d ${D}${PYTHON_SITEPACKAGES_DIR}
-    install -d ${D}${INSTALL_DIR}
-    install -d ${D}${INSTALL_DIR}/test
-    install -d ${D}${INSTALL_DIR}/provider
-    install -m 0755 ${S}/*.py ${D}${INSTALL_DIR}
-    install -m 0755 ${S}/test/*.py ${D}${INSTALL_DIR}/test
-    install -m 0755 ${S}/provider/*.py ${D}${INSTALL_DIR}/provider
+do_compile() {
 }
 
-FILES_${PN} += "${INSTALL_DIR}/*.py ${INSTALL_DIR}/test/*.py ${INSTALL_DIR}/provider/*.py"
+do_install () {
+	oe_runmake install
+}
+
+FILES_${PN} += "${PYTHON_SITEPACKAGES_DIR}/test_framework/*.py \
+				${PYTHON_SITEPACKAGES_DIR}/test_framework/test/*.py \
+				${PYTHON_SITEPACKAGES_DIR}/test_framework/provider/*.py \
+				${bindir}/test-framework-exec \
+				"
