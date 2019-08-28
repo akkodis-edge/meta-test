@@ -4,14 +4,14 @@ LIC_FILES_CHKSUM = "file://${COMMON_LICENSE_DIR}/MIT;md5=0835ade698e0bcf8506ecda
 
 inherit python3-dir python3native
 
-SRCREV ?= "4f85ce93b8ee9804e75ab2c8266e5ef4ce96560c"
+SRCREV ?= "9cf300e96f8da617a9e266e56bd4c23ea5fda079"
 SRC_URI = "git://git@bitbucket.datarespons.com:7999/ms/test-framework.git;protocol=ssh;branch=${BRANCH}"
 BRANCH ?= "master"
 
 PV = "git${SRCPV}"
 S = "${WORKDIR}/git"
 
-DEPENDS += "python3-native python3-grpcio-tools-native"
+DEPENDS += "protobuf-native grpc-native"
 RDEPENDS_${PN} += "python3 python3-core python3-grpcio python3-protobuf loopback-test stress ibmtpm20tss"
 
 EXTRA_OEMAKE += " \
@@ -19,10 +19,6 @@ EXTRA_OEMAKE += " \
 	'PREFIX=${exec_prefix}' \
 	'PYTHON_VERSION=${PYTHON_BASEVERSION}' \
 "
-
-do_compile() {
-	python3 -m grpc_tools.protoc -I${S}/proto --python_out=${S}/proto --grpc_python_out=${S}/proto ${S}/proto/session.proto ${S}/proto/unit.proto
-}
 
 do_install () {
 	oe_runmake install
