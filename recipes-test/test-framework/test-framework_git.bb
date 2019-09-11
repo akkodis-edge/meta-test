@@ -4,7 +4,7 @@ LIC_FILES_CHKSUM = "file://${COMMON_LICENSE_DIR}/MIT;md5=0835ade698e0bcf8506ecda
 
 inherit python3-dir python3native
 
-SRCREV ?= "9cf300e96f8da617a9e266e56bd4c23ea5fda079"
+SRCREV ?= "4fbf5bebbccb49e75b4761e9e63f6879b0def889"
 SRC_URI = "git://git@bitbucket.datarespons.com:7999/ms/test-framework.git;protocol=ssh;branch=${BRANCH}"
 BRANCH ?= "master"
 
