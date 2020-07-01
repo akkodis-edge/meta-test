@@ -2,7 +2,7 @@ DESCRIPTION = "Data Respons loopback interface tests"
 LICENSE = "MIT"
 LIC_FILES_CHKSUM = "file://${COMMON_LICENSE_DIR}/MIT;md5=0835ade698e0bcf8506ecda2f7b4f302"
 
-SRCREV ?= "81fbf374ec82465508977d138facc3a04057dd83"
+SRCREV ?= "451bb9bd3ab36ef1f4d63f731e5dc93fb6a03ecc"
 SRC_URI = "gitsm://git@github.com/data-respons-solutions/loopback-test.git;protocol=ssh;branch=${BRANCH}"
 BRANCH ?= "master"
 
