@@ -12,7 +12,7 @@ PV = "git${SRCPV}"
 S = "${WORKDIR}/git"
 
 DEPENDS += "protobuf-native grpc-native"
-RDEPENDS_${PN} += "python3 python3-core python3-grpcio python3-protobuf loopback-test stress ibmtpm20tss"
+RDEPENDS:${PN} += "python3 python3-core python3-grpcio python3-protobuf loopback-test stress ibmtpm20tss"
 
 EXTRA_OEMAKE += " \
 	'DESTDIR=${D}' \
@@ -24,7 +24,7 @@ do_install () {
 	oe_runmake install
 }
 
-FILES_${PN} += " \
+FILES:${PN} += " \
 	${PYTHON_SITEPACKAGES_DIR}/test_framework/*.py \
 	${PYTHON_SITEPACKAGES_DIR}/test_framework/tests/*.py \
 	${PYTHON_SITEPACKAGES_DIR}/test_framework/providers/*.py \

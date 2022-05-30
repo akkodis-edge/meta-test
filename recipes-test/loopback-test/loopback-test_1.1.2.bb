@@ -8,7 +8,7 @@ BRANCH ?= "master"
 
 PV = "git${SRCPV}"
 S = "${WORKDIR}/git"
-RDEPENDS_${PN} += "libusb1"
+RDEPENDS:${PN} += "libusb1"
 DEPENDS = "libusb1"
 
 CXXFLAGS += "-Wno-stringop-truncation"

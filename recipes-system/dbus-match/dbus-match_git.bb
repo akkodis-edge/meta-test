@@ -9,7 +9,7 @@ BRANCH ?= "master"
 
 PV = "git${SRCPV}"
 S = "${WORKDIR}/git"
-RDEPENDS_${PN} = "systemd"
+RDEPENDS:${PN} = "systemd"
 DEPENDS = "systemd"
 
 do_install () {

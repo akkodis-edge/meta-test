@@ -13,4 +13,4 @@ do_install() {
 	install -m 0644 ${S}/gpio-assert@.service ${D}${systemd_unitdir}/system/gpio-assert@.service    
 }
 
-FILES_${PN} = "${systemd_unitdir}/system/gpio-assert@.service"
+FILES:${PN} = "${systemd_unitdir}/system/gpio-assert@.service"
