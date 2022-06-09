@@ -9,7 +9,7 @@ RDEPENDS:${PN} = " \
     grasshopper \
     grasshopper-ghcli \
     loopback-test \
-    memory-alloc \
+    test-utils \
     stressapptest \
     ssd-test \
 "
