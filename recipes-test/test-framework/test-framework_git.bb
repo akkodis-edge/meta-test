@@ -12,7 +12,7 @@ PV = "git${SRCPV}"
 S = "${WORKDIR}/git"
 
 DEPENDS += "protobuf-native grpc-native"
-RDEPENDS:${PN} += "python3 python3-core python3-grpcio python3-protobuf loopback-test stress ibmtpm20tss"
+RDEPENDS:${PN} += "python3 python3-core python3-grpcio python3-protobuf loopback-test stress"
 
 EXTRA_OEMAKE += " \
 	'DESTDIR=${D}' \
