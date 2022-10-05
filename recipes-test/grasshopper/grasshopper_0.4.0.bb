@@ -3,13 +3,15 @@ LICENSE = "CLOSED"
 
 inherit python3-dir python3native cmake
 
-SRCREV ?= "2205e29cc3fb8697c66b5e844eeb2860e1617438"
-SRC_URI = "git://git@github.com/data-respons-solutions/grasshopper.git;protocol=ssh;branch=${BRANCH}"
+SRCREV ?= "2c20335e9196c41796dd5612bf132e4fdf0a158d"
+SRC_URI = "gitsm://git@github.com/data-respons-solutions/grasshopper.git;protocol=ssh;branch=${BRANCH}"
 BRANCH ?= "main"
 
 S = "${WORKDIR}/git"
 
-DEPENDS += "protobuf protobuf-native spdlog grpc grpc-native"
+# sqlite3 requires sqlite3_unlock_notify() api which is not provided by upstream recipe.
+# See this layers recipes-support/sqlite/sqlite3_%.bbappend for a fix.
+DEPENDS += "protobuf protobuf-native spdlog grpc grpc-native sqlite3"
 
 # These paths should be detected by cmake but the protobuf package in meta-oe 
 # doesn't install any cmake files which makes it difficult.
@@ -18,6 +20,7 @@ GRPC_CPP_PLUGIN ??= "${RECIPE_SYSROOT_NATIVE}/usr/bin/grpc_cpp_plugin"
 GRPC_PYTHON_PLUGIN ??= "${RECIPE_SYSROOT_NATIVE}/usr/bin/grpc_python_plugin"
 
 EXTRA_OECMAKE += " \
+	'-DGH_EXTERNAL_SQLITE3=ON' \
 	'-DCMAKE_INSTALL_PYTHON_LIBDIR=${PYTHON_SITEPACKAGES_DIR}' \
 	'-DBUILD_TESTING=OFF' \
 	'-DCMAKE_GRPC_CPP_PLUGIN=${GRPC_CPP_PLUGIN}' \
