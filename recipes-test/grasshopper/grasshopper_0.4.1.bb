@@ -3,13 +3,13 @@ LICENSE = "CLOSED"
 
 inherit python3-dir python3native cmake
 
-SRCREV ?= "2c20335e9196c41796dd5612bf132e4fdf0a158d"
+SRCREV ?= "fd303e12a97ad7e8154508ae7816901bf36784f2"
 SRC_URI = "gitsm://git@github.com/data-respons-solutions/grasshopper.git;protocol=ssh;branch=${BRANCH}"
 BRANCH ?= "main"
 
 S = "${WORKDIR}/git"
 
-# sqlite3 requires sqlite3_unlock_notify() api which is not provided by upstream recipe.
+# grasshopper requires sqlite3_unlock_notify() api which is not provided by upstream recipe.
 # See this layers recipes-support/sqlite/sqlite3_%.bbappend for a fix.
 DEPENDS += "protobuf protobuf-native spdlog grpc grpc-native sqlite3"
 
