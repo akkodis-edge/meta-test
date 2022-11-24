@@ -1,9 +1,11 @@
 DESCRIPTION = "Data Respons test utilities"
 LICENSE = "CLOSED"
 
-SRCREV ?= "010d0f1d3076eaf61dcc663c44319f1b685f0989"
+SRCREV ?= "1248e3297d7741bb3ead475285d2116fd14bea24"
 SRC_URI = "git://git@github.com/data-respons-solutions/test-utils.git;protocol=ssh;branch=${BRANCH}"
 BRANCH ?= "main"
+
+DEPENDS = "libiio"
 
 S = "${WORKDIR}/git"
 
@@ -13,4 +15,5 @@ do_install () {
 	install -d ${D}${bindir}
 	install -m 0755 ${WORKDIR}/build/memsize ${D}${bindir}/
 	install -m 0755 ${WORKDIR}/build/memalloc ${D}${bindir}/
+	install -m 0755 ${WORKDIR}/build/iio-read ${D}${bindir}/
 }
