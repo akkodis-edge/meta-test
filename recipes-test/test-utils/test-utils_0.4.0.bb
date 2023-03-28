@@ -1,7 +1,7 @@
 DESCRIPTION = "Data Respons test utilities"
 LICENSE = "CLOSED"
 
-SRCREV ?= "98eb81125c2501047a18a19549fea4c6a482fb72"
+SRCREV ?= "a4fe3f32faab7575d7bee529223493e835702c88"
 SRC_URI = "git://git@github.com/data-respons-solutions/test-utils.git;protocol=ssh;branch=${BRANCH}"
 BRANCH ?= "main"
 
@@ -21,4 +21,5 @@ do_install () {
 	install -m 0755 ${WORKDIR}/build/iio-read ${D}${bindir}/
 	install -m 0755 ${S}/validate-nvram.sh ${D}${bindir}/validate-nvram
 	install -m 0755 ${S}/retry-until.sh ${D}${bindir}/retry-until
+	install -m 0755 ${WORKDIR}/build/verify-pattern ${D}${bindir}/
 }
