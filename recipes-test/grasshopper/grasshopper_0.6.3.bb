@@ -3,7 +3,7 @@ LICENSE = "CLOSED"
 
 inherit python3-dir python3native cmake
 
-SRCREV ?= "e1f915762b3c209bafd9dee2929579b632428bf9"
+SRCREV ?= "9ea6204a63e9ae19b318908efd2eecd52ab3ef32"
 SRC_URI = "gitsm://git@github.com/data-respons-solutions/grasshopper.git;protocol=ssh;branch=${BRANCH}"
 BRANCH ?= "main"
 
@@ -18,6 +18,7 @@ DEPENDS += "protobuf protobuf-native spdlog grpc grpc-native sqlite3 bison-nativ
 # For now the hardcoded paths are provided.
 GRPC_CPP_PLUGIN ??= "${RECIPE_SYSROOT_NATIVE}/usr/bin/grpc_cpp_plugin"
 GRPC_PYTHON_PLUGIN ??= "${RECIPE_SYSROOT_NATIVE}/usr/bin/grpc_python_plugin"
+PROTOBUF_PROTOC ??= "${RECIPE_SYSROOT_NATIVE}/usr/bin/protoc"
 
 EXTRA_OECMAKE += " \
 	'-DGH_EXTERNAL_SQLITE3=ON' \
@@ -25,6 +26,7 @@ EXTRA_OECMAKE += " \
 	'-DBUILD_TESTING=OFF' \
 	'-DCMAKE_GRPC_CPP_PLUGIN=${GRPC_CPP_PLUGIN}' \
 	'-DCMAKE_GRPC_PYTHON_PLUGIN=${GRPC_PYTHON_PLUGIN}' \
+	'-DProtobuf_PROTOC_EXECUTABLE=${PROTOBUF_PROTOC}' \
 	'-DGH_USE_SANITIZER=OFF' \
 "
 
