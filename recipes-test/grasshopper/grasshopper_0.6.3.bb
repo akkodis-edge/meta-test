@@ -13,9 +13,7 @@ S = "${WORKDIR}/git"
 # See this layers recipes-support/sqlite/sqlite3_%.bbappend for a fix.
 DEPENDS += "protobuf protobuf-native spdlog grpc grpc-native sqlite3 bison-native flex-native"
 
-# These paths should be detected by cmake but the protobuf package in meta-oe 
-# doesn't install any cmake files which makes it difficult.
-# For now the hardcoded paths are provided.
+# cmake will find packages from targets ${RECIPE_SYSROOT}, native paths are explicitly passed in.
 GRPC_CPP_PLUGIN ??= "${RECIPE_SYSROOT_NATIVE}/usr/bin/grpc_cpp_plugin"
 GRPC_PYTHON_PLUGIN ??= "${RECIPE_SYSROOT_NATIVE}/usr/bin/grpc_python_plugin"
 PROTOBUF_PROTOC ??= "${RECIPE_SYSROOT_NATIVE}/usr/bin/protoc"
@@ -29,6 +27,9 @@ EXTRA_OECMAKE += " \
 	'-DProtobuf_PROTOC_EXECUTABLE=${PROTOBUF_PROTOC}' \
 	'-DGH_USE_SANITIZER=OFF' \
 "
+
+# Generated flex/bison source files may contain references to TMPDIR.
+WARN_QA:remove = "buildpaths"
 
 PACKAGES += "${PN}-ghcli"
 
