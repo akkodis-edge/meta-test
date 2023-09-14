@@ -1,9 +1,9 @@
 DESCRIPTION = "Grasshopper test backend"
 LICENSE = "CLOSED"
 
-inherit python3-dir python3native cmake
+inherit systemd python3-dir python3native cmake
 
-SRCREV ?= "75b720905dad801a84527f1b771ee11bf0043f6f"
+SRCREV ?= "7449907a3246d11ed1d290c78aa320d4fea63714"
 SRC_URI = "gitsm://git@github.com/data-respons-solutions/grasshopper.git;protocol=ssh;branch=${BRANCH}"
 BRANCH ?= "main"
 
@@ -28,11 +28,22 @@ EXTRA_OECMAKE += " \
 	'-DGH_USE_SANITIZER=OFF' \
 "
 
+do_install:append() {
+	install -d ${D}${systemd_unitdir}/system
+	install -m 0644 ${S}/data/ghd.service.in ${D}${systemd_unitdir}/system/ghd.service
+	install -d ${D}${sysconfdir}/default
+	install -m 0644 ${S}/data/ghd ${D}${sysconfdir}/default/
+}
+
 # Generated flex/bison source files may contain references to TMPDIR.
 WARN_QA:remove = "buildpaths"
 
 PACKAGES += "${PN}-ghcli"
 
+FILES:{PN} += "${systemd_unitdir}/system/ghd.service ${sysconfdir}/default/ghd"
 FILES:${PN}-ghcli = "${bindir}/ghcli ${bindir}/ghrun ${bindir}/ghcondition \
 					${PYTHON_SITEPACKAGES_DIR}/* ${datadir}/grasshopper/*"
 RDEPENDS:${PN}-ghcli = "python3 python3-core python3-grpcio python3-protobuf python3-pyyaml"
+
+SYSTEMD_PACKAGES = "${PN}"
+SYSTEMD_SERVICE:${PN} = "ghd.service"
