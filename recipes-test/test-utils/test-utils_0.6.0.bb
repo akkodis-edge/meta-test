@@ -1,7 +1,7 @@
 DESCRIPTION = "Data Respons test utilities"
 LICENSE = "CLOSED"
 
-SRCREV ?= "213a3c270fea6628f48c15f486e63a2fa8b96b66"
+SRCREV ?= "6a7795030399861a74fd9677d4d962e1293fb6b0"
 SRC_URI = "git://git@github.com/data-respons-solutions/test-utils.git;protocol=ssh;branch=${BRANCH}"
 BRANCH ?= "main"
 
@@ -11,6 +11,8 @@ RDEPENDS:${PN} = "bash bc"
 RDEPENDS:${PN}:append = " coreutils"
 # python3 for dir-checksum
 RDEPENDS:${PN}:append = " python3-crypt" 
+# test-gpio for libgpiod-tools
+RDEPENDS:${PN}:append = " libgpiod-tools"
 
 S = "${WORKDIR}/git"
 
@@ -25,4 +27,5 @@ do_install () {
 	install -m 0755 ${S}/retry-until.sh ${D}${bindir}/retry-until
 	install -m 0755 ${WORKDIR}/build/verify-pattern ${D}${bindir}/
 	install -m 0755 ${S}/dir-checksum.py ${D}${bindir}/dir-checksum
+	install -m 0755 ${S}/test-gpio.sh ${D}${bindir}/test-gpio
 }
