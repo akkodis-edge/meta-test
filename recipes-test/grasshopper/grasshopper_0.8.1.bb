@@ -3,7 +3,7 @@ LICENSE = "CLOSED"
 
 inherit systemd python3-dir python3native cmake
 
-SRCREV ?= "7449907a3246d11ed1d290c78aa320d4fea63714"
+SRCREV ?= "582fd424257368732473846def5988c79f2b51d6"
 SRC_URI = "gitsm://git@github.com/data-respons-solutions/grasshopper.git;protocol=ssh;branch=${BRANCH}"
 BRANCH ?= "main"
 
