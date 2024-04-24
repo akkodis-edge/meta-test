@@ -1,11 +1,13 @@
 DESCRIPTION = "Data Respons test utilities"
 LICENSE = "CLOSED"
 
-SRCREV ?= "6a7795030399861a74fd9677d4d962e1293fb6b0"
+SRCREV ?= "85cd2fd4315883f91657360ff495e92cbfb314cc"
 SRC_URI = "git://git@github.com/data-respons-solutions/test-utils.git;protocol=ssh;branch=${BRANCH}"
 BRANCH ?= "main"
 
-DEPENDS = "libiio"
+PACKAGES += "${PN}-bluetooth"
+
+DEPENDS = "libiio systemd"
 RDEPENDS:${PN} = "bash bc"
 # coreutils for "date" and "timeout"
 RDEPENDS:${PN}:append = " coreutils"
@@ -13,6 +15,12 @@ RDEPENDS:${PN}:append = " coreutils"
 RDEPENDS:${PN}:append = " python3-crypt" 
 # test-gpio for libgpiod-tools
 RDEPENDS:${PN}:append = " libgpiod-tools"
+FILES:${PN} = "${bindir}/memsize ${bindir}/memalloc ${bindir}/iio-read ${bindir}/validate-nvram \
+			   ${bindir}/retry-until ${bindir}/verify-pattern ${bindir}/dir-checksum \
+			   ${bindir}/test-gpio ${bindir}/serial-echo"
+
+RDEPENDS:${PN}-bluetooth = "python3 python3-pygobject python3-dbus bluez5"
+FILES:${PN}-bluetooth = "${bindir}/bt-agent ${bindir}/bt-spp-echo"
 
 S = "${WORKDIR}/git"
 
@@ -28,4 +36,7 @@ do_install () {
 	install -m 0755 ${WORKDIR}/build/verify-pattern ${D}${bindir}/
 	install -m 0755 ${S}/dir-checksum.py ${D}${bindir}/dir-checksum
 	install -m 0755 ${S}/test-gpio.sh ${D}${bindir}/test-gpio
+	install -m 0755 ${WORKDIR}/build/serial-echo ${D}${bindir}/
+	install -m 0755 ${WORKDIR}/build/bt-spp-echo ${D}${bindir}/
+	install -m 0755 ${S}/bt-agent.py ${D}${bindir}/bt-agent
 }
