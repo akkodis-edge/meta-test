@@ -1,9 +1,11 @@
 DESCRIPTION = "Data Respons test utilities"
 LICENSE = "CLOSED"
 
-SRCREV ?= "85cd2fd4315883f91657360ff495e92cbfb314cc"
+SRCREV ?= "3cdcf32bc5fb16639a180ca6dcd121bbb324dd79"
 SRC_URI = "git://git@github.com/data-respons-solutions/test-utils.git;protocol=ssh;branch=${BRANCH}"
 BRANCH ?= "main"
+
+inherit systemd
 
 PACKAGES += "${PN}-bluetooth"
 
@@ -39,4 +41,13 @@ do_install () {
 	install -m 0755 ${WORKDIR}/build/serial-echo ${D}${bindir}/
 	install -m 0755 ${WORKDIR}/build/bt-spp-echo ${D}${bindir}/
 	install -m 0755 ${S}/bt-agent.py ${D}${bindir}/bt-agent
+	sed 's:@BINDIR@:${bindir}:g' ${S}/bt-agent.service.in > ${WORKDIR}/build/bt-agent.service
+	sed 's:@BINDIR@:${bindir}:g' ${S}/bt-spp-echo.service.in > ${WORKDIR}/build/bt-spp-echo.service
+	install -d ${D}${systemd_system_unitdir}
+	install -m 0644 ${WORKDIR}/build/bt-agent.service ${D}${systemd_system_unitdir}/
+	install -m 0644 ${WORKDIR}/build/bt-spp-echo.service ${D}${systemd_system_unitdir}/
 }
+
+SYSTEMD_PACKAGES = "${PN}-bluetooth"
+SYSTEMD_SERVICE:${PN}-bluetooth = "bt-agent.service bt-spp-echo.service"
+SYSTEMD_AUTO_ENABLE = "disable"
