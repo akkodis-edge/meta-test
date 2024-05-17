@@ -1,7 +1,7 @@
 DESCRIPTION = "Data Respons test utilities"
 LICENSE = "CLOSED"
 
-SRCREV ?= "3cdcf32bc5fb16639a180ca6dcd121bbb324dd79"
+SRCREV ?= "7ef3ef5a4f21755e5c8f26169777f33004568624"
 SRC_URI = "git://git@github.com/data-respons-solutions/test-utils.git;protocol=ssh;branch=${BRANCH}"
 BRANCH ?= "main"
 
@@ -41,6 +41,7 @@ do_install () {
 	install -m 0755 ${WORKDIR}/build/serial-echo ${D}${bindir}/
 	install -m 0755 ${WORKDIR}/build/bt-spp-echo ${D}${bindir}/
 	install -m 0755 ${S}/bt-agent.py ${D}${bindir}/bt-agent
+	install -m 0755 ${WORKDIR}/build/pwm-beeper ${D}${bindir}/
 	sed 's:@BINDIR@:${bindir}:g' ${S}/bt-agent.service.in > ${WORKDIR}/build/bt-agent.service
 	sed 's:@BINDIR@:${bindir}:g' ${S}/bt-spp-echo.service.in > ${WORKDIR}/build/bt-spp-echo.service
 	install -d ${D}${systemd_system_unitdir}
