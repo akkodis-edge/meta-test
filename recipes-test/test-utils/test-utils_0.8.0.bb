@@ -19,7 +19,7 @@ RDEPENDS:${PN}:append = " python3-crypt"
 RDEPENDS:${PN}:append = " libgpiod-tools"
 FILES:${PN} = "${bindir}/memsize ${bindir}/memalloc ${bindir}/iio-read ${bindir}/validate-nvram \
 			   ${bindir}/retry-until ${bindir}/verify-pattern ${bindir}/dir-checksum \
-			   ${bindir}/test-gpio ${bindir}/serial-echo"
+			   ${bindir}/test-gpio ${bindir}/serial-echo ${bindir}/pwm-beeper"
 
 RDEPENDS:${PN}-bluetooth = "python3 python3-pygobject python3-dbus bluez5"
 FILES:${PN}-bluetooth = "${bindir}/bt-agent ${bindir}/bt-spp-echo"
