@@ -1,7 +1,7 @@
 DESCRIPTION = "Data Respons test utilities"
 LICENSE = "CLOSED"
 
-SRCREV ?= "7ef3ef5a4f21755e5c8f26169777f33004568624"
+SRCREV ?= "17ba44503bf1e48903b11758ade2690b1334f575"
 SRC_URI = "git://git@github.com/data-respons-solutions/test-utils.git;protocol=ssh;branch=${BRANCH}"
 BRANCH ?= "main"
 
