@@ -7,7 +7,7 @@ SRC_URI = "gitsm://git@github.com/data-respons-solutions/loopback-test.git;proto
 BRANCH ?= "master"
 
 S = "${WORKDIR}/git"
-DEPENDS = "libusb1"
+DEPENDS = "libusb1 bluez5"
 
 CXXFLAGS += "-Wno-stringop-truncation"
 
