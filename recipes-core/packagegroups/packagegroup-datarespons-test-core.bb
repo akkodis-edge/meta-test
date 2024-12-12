@@ -11,5 +11,6 @@ RDEPENDS:${PN} = " \
     loopback-test \
     test-utils \
     stressapptest \
+    stress-ng \
     ssd-test \
 "
