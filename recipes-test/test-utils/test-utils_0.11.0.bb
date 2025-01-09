@@ -1,7 +1,7 @@
 DESCRIPTION = "Data Respons test utilities"
 LICENSE = "CLOSED"
 
-SRCREV ?= "bbbd5a459cb860f416f1e06cb50d8762051eb913"
+SRCREV ?= "12831276317f71e79db1ce6eac48b73d147d7b5f"
 SRC_URI = "gitsm://git@github.com/data-respons-solutions/test-utils.git;protocol=ssh;branch=${BRANCH}"
 BRANCH ?= "main"
 
@@ -51,6 +51,7 @@ do_install () {
 		-e 's:@SYSCONFDIR@:${sysconfdir}:g' \
 		 ${S}/serial-echo@.service.in > ${WORKDIR}/build/serial-echo@.service
 	install -m 0644 ${WORKDIR}/build/serial-echo@.service ${D}${systemd_system_unitdir}/
+	install -m 0755 ${WORKDIR}/build/ip-echo ${D}${bindir}/
 }
 
 SYSTEMD_PACKAGES = "${PN} ${PN}-bluetooth"
