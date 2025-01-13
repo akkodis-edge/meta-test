@@ -1,7 +1,7 @@
 DESCRIPTION = "Data Respons test utilities"
 LICENSE = "CLOSED"
 
-SRCREV ?= "12831276317f71e79db1ce6eac48b73d147d7b5f"
+SRCREV ?= "d37dc88c1a719a68ece26a5ebbdc4a283bcc3c1d"
 SRC_URI = "gitsm://git@github.com/data-respons-solutions/test-utils.git;protocol=ssh;branch=${BRANCH}"
 BRANCH ?= "main"
 
@@ -19,7 +19,8 @@ RDEPENDS:${PN}:append = " python3-crypt"
 RDEPENDS:${PN}:append = " libgpiod-tools"
 FILES:${PN} = "${bindir}/memsize ${bindir}/memalloc ${bindir}/iio-read ${bindir}/validate-nvram \
 			   ${bindir}/retry-until ${bindir}/verify-pattern ${bindir}/dir-checksum \
-			   ${bindir}/test-gpio ${bindir}/serial-echo ${bindir}/pwm-beeper ${bindir}/ip-echo"
+			   ${bindir}/test-gpio ${bindir}/serial-echo ${bindir}/pwm-beeper ${bindir}/ip-echo \
+			   ${sysconfdir}/test-utils/"
 
 RDEPENDS:${PN}-bluetooth = "python3 python3-pygobject python3-dbus bluez5"
 FILES:${PN}-bluetooth = "${bindir}/bt-agent ${bindir}/bt-spp-echo"
@@ -51,10 +52,16 @@ do_install () {
 		-e 's:@SYSCONFDIR@:${sysconfdir}:g' \
 		 ${S}/serial-echo@.service.in > ${WORKDIR}/build/serial-echo@.service
 	install -m 0644 ${WORKDIR}/build/serial-echo@.service ${D}${systemd_system_unitdir}/
+	install -d ${D}${sysconfdir}/test-utils/serial-echo
 	install -m 0755 ${WORKDIR}/build/ip-echo ${D}${bindir}/
+	sed -e 's:@BINDIR@:${bindir}:g' \
+		-e 's:@SYSCONFDIR@:${sysconfdir}:g' \
+		 ${S}/ip-echo@.service.in > ${WORKDIR}/build/ip-echo@.service
+	install -m 0644 ${WORKDIR}/build/ip-echo@.service ${D}${systemd_system_unitdir}/
+	install -d ${D}${sysconfdir}/test-utils/ip-echo
 }
 
 SYSTEMD_PACKAGES = "${PN} ${PN}-bluetooth"
-SYSTEMD_SERVICE:${PN} = "serial-echo@.service"
+SYSTEMD_SERVICE:${PN} = "serial-echo@.service ip-echo@.service"
 SYSTEMD_SERVICE:${PN}-bluetooth = "bt-agent.service bt-spp-echo.service"
 SYSTEMD_AUTO_ENABLE = "disable"
