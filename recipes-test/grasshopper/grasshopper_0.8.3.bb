@@ -4,7 +4,7 @@ LIC_FILES_CHKSUM = "file://${COMMON_LICENSE_DIR}/Proprietary;md5=0557f9d92cf58f2
 
 inherit systemd python3-dir python3native cmake
 
-SRCREV ?= "e29f55cf3879324591aa7fb63197232da83889c3"
+SRCREV ?= "5ee8885237299ecf6d546b78f048f0cec74b759f"
 SRC_URI = "gitsm://git@github.com/data-respons-solutions/grasshopper.git;protocol=ssh;branch=${BRANCH}"
 BRANCH ?= "main"
 
