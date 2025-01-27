@@ -1,7 +1,7 @@
 DESCRIPTION = "Data Respons test utilities"
 LICENSE = "CLOSED"
 
-SRCREV ?= "d37dc88c1a719a68ece26a5ebbdc4a283bcc3c1d"
+SRCREV ?= "4cf7b8d01b941be3a708a0aa7016dbd072bdc05c"
 SRC_URI = "gitsm://git@github.com/data-respons-solutions/test-utils.git;protocol=ssh;branch=${BRANCH}"
 BRANCH ?= "main"
 
@@ -10,17 +10,17 @@ inherit systemd
 PACKAGES += "${PN}-bluetooth"
 
 DEPENDS = "libiio systemd"
-RDEPENDS:${PN} = "bash bc"
+RDEPENDS:${PN} = "bash bc python3-core"
 # coreutils for "date" and "timeout"
 RDEPENDS:${PN}:append = " coreutils"
 # python3 for dir-checksum
-RDEPENDS:${PN}:append = " python3-crypt" 
+RDEPENDS:${PN}:append = " python3-crypt"
 # test-gpio for libgpiod-tools
 RDEPENDS:${PN}:append = " libgpiod-tools"
 FILES:${PN} = "${bindir}/memsize ${bindir}/memalloc ${bindir}/iio-read ${bindir}/validate-nvram \
 			   ${bindir}/retry-until ${bindir}/verify-pattern ${bindir}/dir-checksum \
 			   ${bindir}/test-gpio ${bindir}/serial-echo ${bindir}/pwm-beeper ${bindir}/ip-echo \
-			   ${sysconfdir}/test-utils/"
+			   ${sysconfdir}/test-utils/ ${bindir}/gpsd-fix"
 
 RDEPENDS:${PN}-bluetooth = "python3 python3-pygobject python3-dbus bluez5"
 FILES:${PN}-bluetooth = "${bindir}/bt-agent ${bindir}/bt-spp-echo"
@@ -59,6 +59,7 @@ do_install () {
 		 ${S}/ip-echo@.service.in > ${WORKDIR}/build/ip-echo@.service
 	install -m 0644 ${WORKDIR}/build/ip-echo@.service ${D}${systemd_system_unitdir}/
 	install -d ${D}${sysconfdir}/test-utils/ip-echo
+	install -m 0755 ${S}/gpsd-fix.py ${D}${bindir}/gpsd-fix
 }
 
 SYSTEMD_PACKAGES = "${PN} ${PN}-bluetooth"
