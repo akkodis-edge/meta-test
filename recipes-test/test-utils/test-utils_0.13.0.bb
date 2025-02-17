@@ -1,7 +1,7 @@
 DESCRIPTION = "Data Respons test utilities"
 LICENSE = "CLOSED"
 
-SRCREV ?= "4cf7b8d01b941be3a708a0aa7016dbd072bdc05c"
+SRCREV ?= "a913495a33e138001bf03d6e710b4f58e8cfa42e"
 SRC_URI = "gitsm://git@github.com/data-respons-solutions/test-utils.git;protocol=ssh;branch=${BRANCH}"
 BRANCH ?= "main"
 
@@ -20,7 +20,7 @@ RDEPENDS:${PN}:append = " libgpiod-tools"
 FILES:${PN} = "${bindir}/memsize ${bindir}/memalloc ${bindir}/iio-read ${bindir}/validate-nvram \
 			   ${bindir}/retry-until ${bindir}/verify-pattern ${bindir}/dir-checksum \
 			   ${bindir}/test-gpio ${bindir}/serial-echo ${bindir}/pwm-beeper ${bindir}/ip-echo \
-			   ${sysconfdir}/test-utils/ ${bindir}/gpsd-fix"
+			   ${sysconfdir}/test-utils/ ${bindir}/gpsd-fix ${bindir}/backlight-increment"
 
 RDEPENDS:${PN}-bluetooth = "python3 python3-pygobject python3-dbus bluez5"
 FILES:${PN}-bluetooth = "${bindir}/bt-agent ${bindir}/bt-spp-echo"
@@ -60,6 +60,7 @@ do_install () {
 	install -m 0644 ${WORKDIR}/build/ip-echo@.service ${D}${systemd_system_unitdir}/
 	install -d ${D}${sysconfdir}/test-utils/ip-echo
 	install -m 0755 ${S}/gpsd-fix.py ${D}${bindir}/gpsd-fix
+	install -m 0755 ${S}/backlight-increment.sh ${D}${bindir}/backlight-increment
 }
 
 SYSTEMD_PACKAGES = "${PN} ${PN}-bluetooth"
