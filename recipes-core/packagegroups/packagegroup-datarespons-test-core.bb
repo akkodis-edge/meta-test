@@ -10,6 +10,7 @@ RDEPENDS:${PN} = " \
     grasshopper-ghcli \
     loopback-test \
     test-utils \
+    ${@bb.utils.contains('DISTRO_FEATURES', 'bluetooth', 'test-utils-bluetooth', '', d)} \
     stressapptest \
     stress-ng \
     ssd-test \
