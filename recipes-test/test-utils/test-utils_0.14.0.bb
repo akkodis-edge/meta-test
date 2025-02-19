@@ -1,7 +1,7 @@
 DESCRIPTION = "Data Respons test utilities"
 LICENSE = "CLOSED"
 
-SRCREV ?= "a913495a33e138001bf03d6e710b4f58e8cfa42e"
+SRCREV ?= "de1d2c9301cead0fe6b467627847d66b9464f22d"
 SRC_URI = "gitsm://git@github.com/data-respons-solutions/test-utils.git;protocol=ssh;branch=${BRANCH}"
 BRANCH ?= "main"
 
@@ -9,7 +9,7 @@ inherit systemd
 
 PACKAGES += "${PN}-bluetooth"
 
-DEPENDS = "libiio systemd"
+DEPENDS = "libiio systemd libinput"
 RDEPENDS:${PN} = "bash bc python3-core"
 # coreutils for "date" and "timeout"
 RDEPENDS:${PN}:append = " coreutils"
@@ -20,7 +20,8 @@ RDEPENDS:${PN}:append = " libgpiod-tools"
 FILES:${PN} = "${bindir}/memsize ${bindir}/memalloc ${bindir}/iio-read ${bindir}/validate-nvram \
 			   ${bindir}/retry-until ${bindir}/verify-pattern ${bindir}/dir-checksum \
 			   ${bindir}/test-gpio ${bindir}/serial-echo ${bindir}/pwm-beeper ${bindir}/ip-echo \
-			   ${sysconfdir}/test-utils/ ${bindir}/gpsd-fix ${bindir}/backlight-increment"
+			   ${sysconfdir}/test-utils/ ${bindir}/gpsd-fix ${bindir}/backlight-increment \
+			   ${bindir}/input-detect"
 
 RDEPENDS:${PN}-bluetooth = "python3 python3-pygobject python3-dbus bluez5"
 FILES:${PN}-bluetooth = "${bindir}/bt-agent ${bindir}/bt-spp-echo"
@@ -61,6 +62,7 @@ do_install () {
 	install -d ${D}${sysconfdir}/test-utils/ip-echo
 	install -m 0755 ${S}/gpsd-fix.py ${D}${bindir}/gpsd-fix
 	install -m 0755 ${S}/backlight-increment.sh ${D}${bindir}/backlight-increment
+	install -m 0755 ${WORKDIR}/build/input-detect ${D}${bindir}/
 }
 
 SYSTEMD_PACKAGES = "${PN} ${PN}-bluetooth"
