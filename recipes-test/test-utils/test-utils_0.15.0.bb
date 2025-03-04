@@ -1,16 +1,16 @@
 DESCRIPTION = "Data Respons test utilities"
 LICENSE = "CLOSED"
 
-SRCREV ?= "de1d2c9301cead0fe6b467627847d66b9464f22d"
+SRCREV ?= "563acc5b90de7d55dc69570af85afeacfaa5bc66"
 SRC_URI = "gitsm://git@github.com/data-respons-solutions/test-utils.git;protocol=ssh;branch=${BRANCH}"
 BRANCH ?= "main"
 
 inherit systemd
 
-PACKAGES += "${PN}-bluetooth"
+PACKAGES += "${PN}-bluetooth ${PN}-audio"
 
 DEPENDS = "libiio systemd libinput"
-RDEPENDS:${PN} = "bash bc python3-core"
+RDEPENDS:${PN}:append = " bash bc python3-core"
 # coreutils for "date" and "timeout"
 RDEPENDS:${PN}:append = " coreutils"
 # python3 for dir-checksum
@@ -25,6 +25,9 @@ FILES:${PN} = "${bindir}/memsize ${bindir}/memalloc ${bindir}/iio-read ${bindir}
 
 RDEPENDS:${PN}-bluetooth = "python3 python3-pygobject python3-dbus bluez5"
 FILES:${PN}-bluetooth = "${bindir}/bt-agent ${bindir}/bt-spp-echo"
+
+RDEPENDS:${PN}-audio = "gstreamer1.0 pulseaudio-server gstreamer1.0-plugins-base-audiotestsrc gstreamer1.0-plugins-good-pulseaudio gstreamer1.0-plugins-good-wavparse alsa-utils-speakertest"
+FILES:${PN}-audio = "${bindir}/speaker-output"
 
 S = "${WORKDIR}/git"
 
@@ -63,6 +66,7 @@ do_install () {
 	install -m 0755 ${S}/gpsd-fix.py ${D}${bindir}/gpsd-fix
 	install -m 0755 ${S}/backlight-increment.sh ${D}${bindir}/backlight-increment
 	install -m 0755 ${WORKDIR}/build/input-detect ${D}${bindir}/
+	install -m 0755 ${S}/speaker-output.sh ${D}${bindir}/speaker-output
 }
 
 SYSTEMD_PACKAGES = "${PN} ${PN}-bluetooth"
