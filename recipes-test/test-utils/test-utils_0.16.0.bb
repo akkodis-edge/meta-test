@@ -1,7 +1,7 @@
 DESCRIPTION = "Data Respons test utilities"
 LICENSE = "CLOSED"
 
-SRCREV ?= "563acc5b90de7d55dc69570af85afeacfaa5bc66"
+SRCREV ?= "8c3052e101980577eced7339fcda58764ee6a44f"
 SRC_URI = "gitsm://git@github.com/data-respons-solutions/test-utils.git;protocol=ssh;branch=${BRANCH}"
 BRANCH ?= "main"
 
@@ -9,7 +9,7 @@ inherit systemd
 
 PACKAGES += "${PN}-bluetooth ${PN}-audio"
 
-DEPENDS = "libiio systemd libinput"
+DEPENDS = "libiio systemd libinput sdbus-c++ sdbus-c++-tools-native"
 RDEPENDS:${PN}:append = " bash bc python3-core"
 # coreutils for "date" and "timeout"
 RDEPENDS:${PN}:append = " coreutils"
@@ -45,7 +45,7 @@ do_install () {
 	install -m 0755 ${S}/test-gpio.sh ${D}${bindir}/test-gpio
 	install -m 0755 ${WORKDIR}/build/serial-echo ${D}${bindir}/
 	install -m 0755 ${WORKDIR}/build/bt-spp-echo ${D}${bindir}/
-	install -m 0755 ${S}/bt-agent.py ${D}${bindir}/bt-agent
+	install -m 0755 ${WORKDIR}/build/bt-agent ${D}${bindir}
 	install -m 0755 ${WORKDIR}/build/pwm-beeper ${D}${bindir}/
 	sed 's:@BINDIR@:${bindir}:g' ${S}/bt-agent.service.in > ${WORKDIR}/build/bt-agent.service
 	sed 's:@BINDIR@:${bindir}:g' ${S}/bt-spp-echo.service.in > ${WORKDIR}/build/bt-spp-echo.service
@@ -68,6 +68,11 @@ do_install () {
 	install -m 0755 ${WORKDIR}/build/input-detect ${D}${bindir}/
 	install -m 0755 ${S}/speaker-output.sh ${D}${bindir}/speaker-output
 }
+
+# Generated sdbus-c++ headers are placed in build-dir and the header path is included in CXXFLAGS.
+# Disable buildpaths warning.
+WARN_QA:remove = "buildpaths"
+
 
 SYSTEMD_PACKAGES = "${PN} ${PN}-bluetooth"
 SYSTEMD_SERVICE:${PN} = "serial-echo@.service ip-echo@.service"
