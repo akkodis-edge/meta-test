@@ -1,7 +1,7 @@
 DESCRIPTION = "Data Respons test configs"
 LICENSE = "CLOSED"
 
-SRCREV ?= "3f3a2390b7f5ae81d95fbb95f8f7aebff370c9a9"
+SRCREV ?= "e9ef5c6cfeaab63753f7d2f7151fa85f3725a2b6"
 SRC_URI = "git://git@github.com/data-respons-solutions/test-cm.git;protocol=ssh;branch=main"
 
 inherit systemd
