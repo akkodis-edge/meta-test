@@ -27,7 +27,6 @@ PACKAGECONFIG = " \
 	${@bb.utils.contains('DISTRO_FEATURES', 'alsa', 'audio', '',d)} \
 	${@bb.utils.contains('DISTRO_FEATURES', 'wayland', 'display', '',d)} \
 	gps \
-	sanitizer \
 "
 
 AUDIO_RDEPENDS = " \
