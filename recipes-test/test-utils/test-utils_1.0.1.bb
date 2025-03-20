@@ -1,7 +1,7 @@
 DESCRIPTION = "Data Respons test utilities"
 LICENSE = "CLOSED"
 
-SRCREV ?= "4ce5d3fa675acbac3922d181a9d1a288eecab368"
+SRCREV ?= "5f594d41a9d3a77f7081467e9c7a4800dea050f4"
 SRC_URI = "gitsm://git@github.com/data-respons-solutions/test-utils.git;protocol=ssh;branch=${BRANCH}"
 BRANCH ?= "main"
 
@@ -36,7 +36,7 @@ AUDIO_RDEPENDS = " \
 "
 
 PACKAGECONFIG[systemd] = "USE_SYSTEMD=1,USE_SYSTEMD=0"
-PACKAGECONFIG[io] = "USE_IO=1,USE_IO=0,libiio,libgpiod-tools"
+PACKAGECONFIG[io] = "USE_IO=1,USE_IO=0,libiio libgpiod"
 PACKAGECONFIG[bluetooth] = "USE_BLUETOOTH=1,USE_BLUETOOTH=0,sdbus-c++ sdbus-c++-tools-native,bluez5"
 PACKAGECONFIG[audio] = "USE_AUDIO=1,USE_AUDIO=0,,${AUDIO_RDEPENDS}"
 PACKAGECONFIG[display] = "USE_DISPLAY=1,USE_DISPLAY=0,libinput"
