@@ -15,7 +15,7 @@ EXTRA_OECONF = " \
 	USE_CLANG_TIDY=0 \
 "
 
-PACKAGECONFIG = "
+PACKAGECONFIG = " \
 	${@bb.utils.contains('DISTRO_FEATURES', 'bluetooth', 'bluetooth', '',d)} \
 "
 
