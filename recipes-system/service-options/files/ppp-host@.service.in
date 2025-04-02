@@ -1,0 +1,13 @@
+[Unit]
+Description=PPP link to %I
+Before=network.target
+StartLimitIntervalSec=0
+
+[Service]
+ExecStartPre=-mkdir -p /var/run/pppd/lock
+ExecStart=@sbindir@/pppd call %I nodetach nolog
+Restart=always
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target

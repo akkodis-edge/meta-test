@@ -1,0 +1,13 @@
+[Unit]
+Description="Service options"
+ConditionFileNotEmpty=/data/boot/service.conf
+Requires=data.mount
+Wants=multi-user.target service-options@data-boot-service.conf.service
+Before=service-options@data-boot-service.conf.service
+After=multi-user.target data.mount
+
+[Service]
+ExecStart=@bindir@/true
+
+[Install]
+WantedBy=multi-user.target

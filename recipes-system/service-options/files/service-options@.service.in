@@ -1,0 +1,11 @@
+[Unit]
+Description="Service options"
+Requires=multi-user.target
+After=multi-user.target
+
+[Service]
+Type=oneshot
+ExecStart=@sbindir@/service-options %f
+
+[Install]
+WantedBy=multi-user.target

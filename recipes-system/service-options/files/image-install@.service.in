@@ -1,0 +1,12 @@
+[Unit]
+Description="Image container installer"
+
+[Service]
+Type=oneshot
+EnvironmentFile=@sysconfdir@/default/image-install
+ExecStartPre=-@sbindir@/image-install-status start
+ExecStart=@sbindir@/install-image-container $OPTIONS %f
+ExecStop=-@sbindir@/image-install-status $SERVICE_RESULT
+
+[Install]
+WantedBy=multi-user.target
