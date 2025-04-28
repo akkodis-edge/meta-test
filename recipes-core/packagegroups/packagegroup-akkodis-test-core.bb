@@ -1,4 +1,4 @@
-SUMMARY = "Data Respons test tools collection"
+SUMMARY = "Akkodis Edge test tools collection"
 PACKAGE_ARCH = "${MACHINE_ARCH}"
 
 inherit packagegroup

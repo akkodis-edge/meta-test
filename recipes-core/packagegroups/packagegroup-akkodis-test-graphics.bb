@@ -1,9 +1,9 @@
-SUMMARY = "Data Respons test tools collection"
+SUMMARY = "Akkodis Edge test tools collection"
 PACKAGE_ARCH = "${MACHINE_ARCH}"
 
 inherit packagegroup
 
-PACKAGES = "${PN} packagegroup-datarespons-test-touch"
+PACKAGES = "${PN} packagegroup-akkodis-test-touch"
 
 RDEPENDS:${PN} = " \
 	lcd-pattern \
@@ -11,7 +11,7 @@ RDEPENDS:${PN} = " \
 	${@bb.utils.contains('DISTRO_FEATURES', 'wayland', 'weston-examples', '', d)} \
 "
 
-RDEPENDS:packagegroup-datarespons-test-touch = " \
+RDEPENDS:packagegroup-akkodis-test-touch = " \
 	libinput \
 	libinput-bin \
 	python3-libevdev \
