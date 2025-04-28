@@ -1,8 +1,8 @@
-DESCRIPTION = "Data Respons test configs"
+DESCRIPTION = "Akkodis Edge test configs"
 LICENSE = "CLOSED"
 
 SRCREV ?= "e9ef5c6cfeaab63753f7d2f7151fa85f3725a2b6"
-SRC_URI = "git://git@github.com/data-respons-solutions/test-cm.git;protocol=ssh;branch=main"
+SRC_URI = "git://git@github.com/akkodis-edge/test-cm.git;protocol=ssh;branch=main"
 
 inherit systemd
 
