@@ -6,7 +6,7 @@ inherit systemd
 
 SRC_URI = "file://service-options-pendrive.service.in"
 
-RDEPENDS:${PN} += "service-options mount-pendrive"
+RDEPENDS:${PN} += "service-options udev-pendrive"
 
 do_install() {
 	install -d ${D}${systemd_unitdir}/system
