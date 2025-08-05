@@ -5,7 +5,7 @@ After=multi-user.target
 
 [Service]
 Type=oneshot
-ExecStart=@sbindir@/service-options %f
+ExecStart=@sbindir@/service-options /rootfs.dev/boot/service.conf
 
 [Install]
 WantedBy=multi-user.target

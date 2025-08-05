@@ -14,7 +14,7 @@ LIC_FILES_CHKSUM = "file://${COMMON_LICENSE_DIR}/MIT;md5=0835ade698e0bcf8506ecda
 inherit systemd
 
 SRC_URI = " \
-	file://service-options@.service.in \
+	file://service-options.service.in \
 	file://service-options.sh \
 	file://ppp-host@.service.in \
 	file://image-install@.service.in \
@@ -26,8 +26,8 @@ do_install() {
 	install -d ${D}${sbindir}
 	install -m 0755 ${WORKDIR}/service-options.sh ${D}${sbindir}/service-options
 	install -d ${D}${systemd_unitdir}/system
-	sed -e 's:@sbindir@:${sbindir}:g' ${WORKDIR}/service-options@.service.in > ${WORKDIR}/service-options@.service
-	install -m 0644 ${WORKDIR}/service-options@.service ${D}${systemd_unitdir}/system/
+	sed -e 's:@sbindir@:${sbindir}:g' ${WORKDIR}/service-options.service.in > ${WORKDIR}/service-options.service
+	install -m 0644 ${WORKDIR}/service-options.service ${D}${systemd_unitdir}/system/
 
 	sed -e 's:@sbindir@:${sbindir}:g' ${WORKDIR}/ppp-host@.service.in > ${WORKDIR}/ppp-host@.service
 	install -m 0644 ${WORKDIR}/ppp-host@.service ${D}${systemd_unitdir}/system/
@@ -38,4 +38,5 @@ do_install() {
 }
 
 SYSTEMD_PACKAGES = "${PN}"
-FILES:${PN} += "${systemd_system_unitdir}/ppp-host@.service ${systemd_system_unitdir}/service-options@.service ${systemd_system_unitdir}/image-install@.service"
+SYSTEMD_SERVICE:${PN} = "service-options.service"
+FILES:${PN} += "${systemd_system_unitdir}/ppp-host@.service ${systemd_system_unitdir}/service-options.service ${systemd_system_unitdir}/image-install@.service"
