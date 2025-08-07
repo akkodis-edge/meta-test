@@ -19,22 +19,24 @@ SRC_URI = " \
 	file://ppp-host@.service.in \
 	file://image-install@.service.in \
 "
+S = "${WORKDIR}/sources"
+UNPACKDIR = "${S}"
 
 RDEPENDS:${PN} += "bash ppp dos2unix sysctl-ip-forward"
 
 do_install() {
 	install -d ${D}${sbindir}
-	install -m 0755 ${WORKDIR}/service-options.sh ${D}${sbindir}/service-options
+	install -m 0755 ${S}/service-options.sh ${D}${sbindir}/service-options
 	install -d ${D}${systemd_unitdir}/system
-	sed -e 's:@sbindir@:${sbindir}:g' ${WORKDIR}/service-options.service.in > ${WORKDIR}/service-options.service
-	install -m 0644 ${WORKDIR}/service-options.service ${D}${systemd_unitdir}/system/
+	sed -e 's:@sbindir@:${sbindir}:g' ${S}/service-options.service.in > ${S}/service-options.service
+	install -m 0644 ${S}/service-options.service ${D}${systemd_unitdir}/system/
 
-	sed -e 's:@sbindir@:${sbindir}:g' ${WORKDIR}/ppp-host@.service.in > ${WORKDIR}/ppp-host@.service
-	install -m 0644 ${WORKDIR}/ppp-host@.service ${D}${systemd_unitdir}/system/
+	sed -e 's:@sbindir@:${sbindir}:g' ${S}/ppp-host@.service.in > ${S}/ppp-host@.service
+	install -m 0644 ${S}/ppp-host@.service ${D}${systemd_unitdir}/system/
 
 	sed -e 's:@sbindir@:${sbindir}:g' -e 's:@sysconfdir@:${sysconfdir}:g' \
-		${WORKDIR}/image-install@.service.in > ${WORKDIR}/image-install@.service
-	install -m 0644 ${WORKDIR}/image-install@.service ${D}${systemd_unitdir}/system/
+		${S}/image-install@.service.in > ${S}/image-install@.service
+	install -m 0644 ${S}/image-install@.service ${D}${systemd_unitdir}/system/
 }
 
 SYSTEMD_PACKAGES = "${PN}"
