@@ -6,7 +6,6 @@ inherit packagegroup
 PACKAGES = "${PN} packagegroup-akkodis-test-touch"
 
 RDEPENDS:${PN} = " \
-	lcd-pattern \
 	glmark2 \
 	${@bb.utils.contains('DISTRO_FEATURES', 'wayland', 'weston-examples', '', d)} \
 "
