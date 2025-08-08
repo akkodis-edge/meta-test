@@ -37,7 +37,7 @@ do_install:append() {
 }
 
 # Generated flex/bison source files may contain references to TMPDIR.
-WARN_QA:remove = "buildpaths"
+ERROR_QA:remove = "buildpaths"
 
 PACKAGES += "${PN}-ghcli"
 
