@@ -54,7 +54,7 @@ do_install() {
 # Generated sdbus-c++ headers are placed in build-dir and the header path is included in CXXFLAGS.
 # Header paths are in turn included in .debug files.
 # Disable buildpaths warning.
-WARN_QA:remove = "buildpaths"
+ERROR_QA:remove = "buildpaths"
 
 SYSTEMD_PACKAGES = "${PN}"
 SYSTEMD_SERVICE:${PN} = " \
