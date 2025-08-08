@@ -1,7 +1,7 @@
 DESCRIPTION = "Akkodis Edge test utilities"
 LICENSE = "CLOSED"
 
-SRCREV ?= "8da7f93572d0e0e576d316822fe831a79264ee82"
+SRCREV ?= "04c62a16925f981c451580a7e749e38d83a71306"
 SRC_URI = "gitsm://git@github.com/akkodis-edge/test-utils.git;protocol=ssh;branch=${BRANCH}"
 BRANCH ?= "main"
 
@@ -22,7 +22,7 @@ EXTRA_OECONF = " \
 
 PACKAGECONFIG = " \
 	${@'systemd' if d.getVar('INIT_MANAGER') == 'systemd' else ''} \
-	io \
+	io usb iptables \
 	${@bb.utils.contains('DISTRO_FEATURES', 'bluetooth', 'bluetooth', '',d)} \
 	${@bb.utils.contains('DISTRO_FEATURES', 'alsa', 'audio', '',d)} \
 	${@bb.utils.contains('DISTRO_FEATURES', 'wayland', 'display', '',d)} \
@@ -35,12 +35,20 @@ AUDIO_RDEPENDS = " \
 	alsa-utils-speakertest \
 "
 
+DISPLAY_RDEPENDS = " \
+	gstreamer1.0 gstreamer1.0-plugins-good-videobox gstreamer1.0-plugins-base-videotestsrc \
+	gstreamer1.0-plugins-base-videoconvertscale gstreamer1.0-plugins-bad-waylandsink \
+	libinput \
+"
+
 PACKAGECONFIG[systemd] = "USE_SYSTEMD=1,USE_SYSTEMD=0"
 PACKAGECONFIG[io] = "USE_IO=1,USE_IO=0,libiio libgpiod"
 PACKAGECONFIG[bluetooth] = "USE_BLUETOOTH=1,USE_BLUETOOTH=0,sdbus-c++ sdbus-c++-tools-native,bluez5"
 PACKAGECONFIG[audio] = "USE_AUDIO=1,USE_AUDIO=0,,${AUDIO_RDEPENDS}"
-PACKAGECONFIG[display] = "USE_DISPLAY=1,USE_DISPLAY=0,libinput"
+PACKAGECONFIG[display] = "USE_DISPLAY=1,USE_DISPLAY=0,libinput,${DISPLAY_RDEPENDS}"
 PACKAGECONFIG[gps] = "USE_GPS=1,USE_GPS=0,gpsd,libgps"
+PACKAGECONFIG[usb] = "USE_USB=1,USE_USB=0,libusb"
+PACKAGECONFIG[iptables] = "USE_IPTABLES=1,USE_IPTABLES=0,,iptables iproute2-ip net-tools"
 PACKAGECONFIG[sanitizer] = "USE_SANITIZER=1,USE_SANITIZER=0,gcc-sanitizers"
 
 do_compile() {
