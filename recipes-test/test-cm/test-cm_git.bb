@@ -1,7 +1,7 @@
 DESCRIPTION = "Akkodis Edge test configs"
 LICENSE = "CLOSED"
 
-SRCREV ?= "e9ef5c6cfeaab63753f7d2f7151fa85f3725a2b6"
+SRCREV ?= "75fdb55c9b50c99248da63072c8bfd19e863be41"
 SRC_URI = "git://git@github.com/akkodis-edge/test-cm.git;protocol=ssh;branch=main"
 
 inherit systemd
