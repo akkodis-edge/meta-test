@@ -8,8 +8,6 @@ SRCREV ?= "41b71e879ca778d386262f16cb0374ecf0672c34"
 SRC_URI = "gitsm://git@github.com/akkodis-edge/grasshopper.git;protocol=ssh;branch=${BRANCH}"
 BRANCH ?= "main"
 
-S = "${WORKDIR}/git"
-
 # grasshopper requires sqlite3_unlock_notify() api which is not provided by upstream recipe.
 # See this layers recipes-support/sqlite/sqlite3_%.bbappend for a fix.
 DEPENDS += "protobuf protobuf-native spdlog grpc grpc-native sqlite3 bison-native flex-native"

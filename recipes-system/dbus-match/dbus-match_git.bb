@@ -8,7 +8,6 @@ SRC_URI = "git://git@github.com/akkodis-edge/dbus-match.git;protocol=ssh;branch=
 BRANCH ?= "master"
 
 PV = "git${SRCPV}"
-S = "${WORKDIR}/git"
 RDEPENDS:${PN} = "systemd"
 DEPENDS = "systemd"
 

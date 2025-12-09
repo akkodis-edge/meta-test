@@ -7,8 +7,6 @@ BRANCH ?= "main"
 
 inherit systemd
 
-S = "${WORKDIR}/git"
-
 RDEPENDS:${PN} = "bash bc coreutils"
 
 EXTRA_OECONF = " \

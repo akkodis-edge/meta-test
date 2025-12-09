@@ -7,7 +7,6 @@ SRC_URI = "gitsm://git@github.com/akkodis-edge/ssd-test.git;protocol=ssh;branch=
 BRANCH ?= "master"
 
 PV = "git${SRCPV}"
-S = "${WORKDIR}/git"
 
 do_install () {
 	install -d ${D}${prefix}/bin

@@ -6,8 +6,6 @@ SRC_URI = "git://git@github.com/akkodis-edge/test-cm.git;protocol=ssh;branch=mai
 
 inherit systemd
 
-S = "${WORKDIR}/git"
-
 EXTRA_OEMAKE = "BUILD=${WORKDIR}/build DATADIR=${datadir} DESTDIR=${D}"
 
 do_install () {

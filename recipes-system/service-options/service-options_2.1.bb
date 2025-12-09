@@ -19,8 +19,7 @@ SRC_URI = " \
 	file://ppp-host@.service.in \
 	file://image-install@.service.in \
 "
-S = "${WORKDIR}/sources"
-UNPACKDIR = "${S}"
+S = "${UNPACKDIR}"
 
 RDEPENDS:${PN} += "bash ppp dos2unix sysctl-ip-forward"
 
