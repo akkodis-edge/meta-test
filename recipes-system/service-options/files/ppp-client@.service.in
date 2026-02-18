@@ -1,0 +1,19 @@
+[Unit]
+Description=PPP link to %I
+Before=network.target
+StartLimitIntervalSec=0
+
+[Service]
+ExecStartPre=-mkdir -p /var/run/pppd/lock
+# Disconnect any active connection which might not have been
+# terminated properly. Such a dangling connection is a potential
+# leftover from a sudden power loss where the client
+# did not gracefully close the connection and the ppp host
+# has not yet timed out.
+ExecStartPre=-@sbindir@/pppd call %I nodetach nolog maxconnect 1
+ExecStart=@sbindir@/pppd call %I nodetach nolog
+Restart=always
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target

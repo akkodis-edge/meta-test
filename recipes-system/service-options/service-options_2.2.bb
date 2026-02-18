@@ -17,11 +17,14 @@ SRC_URI = " \
 	file://service-options.service.in \
 	file://service-options.sh \
 	file://ppp-host@.service.in \
+	file://ppp-client@.service.in \
+	file://10dummyroute \
+	file://10removedummy \
 	file://image-install@.service.in \
 "
 S = "${UNPACKDIR}"
 
-RDEPENDS:${PN} += "bash ppp dos2unix sysctl-ip-forward"
+RDEPENDS:${PN} += "bash ppp dos2unix sysctl-ip-forward debianutils-run-parts"
 
 do_install() {
 	install -d ${D}${sbindir}
@@ -32,6 +35,13 @@ do_install() {
 
 	sed -e 's:@sbindir@:${sbindir}:g' ${S}/ppp-host@.service.in > ${S}/ppp-host@.service
 	install -m 0644 ${S}/ppp-host@.service ${D}${systemd_unitdir}/system/
+	sed -e 's:@sbindir@:${sbindir}:g' ${S}/ppp-client@.service.in > ${S}/ppp-client@.service
+	install -m 0644 ${S}/ppp-client@.service ${D}${systemd_unitdir}/system/
+	install -d ${D}${sysconfdir}/ppp/ip-up.d
+	install -d ${D}${sysconfdir}/ppp/ip-down.d
+	install -d ${D}${sysconfdir}/ppp/peers
+	install -m 0755 ${S}/10dummyroute ${D}${sysconfdir}/ppp/ip-up.d/
+	install -m 0755 ${S}/10removedummy ${D}${sysconfdir}/ppp/ip-down.d/
 
 	sed -e 's:@sbindir@:${sbindir}:g' -e 's:@sysconfdir@:${sysconfdir}:g' \
 		${S}/image-install@.service.in > ${S}/image-install@.service
@@ -41,3 +51,4 @@ do_install() {
 SYSTEMD_PACKAGES = "${PN}"
 SYSTEMD_SERVICE:${PN} = "service-options.service"
 FILES:${PN} += "${systemd_system_unitdir}/ppp-host@.service ${systemd_system_unitdir}/service-options.service ${systemd_system_unitdir}/image-install@.service"
+FILES:${PN} += "${systemd_system_unitdir}/ppp-client@.service"

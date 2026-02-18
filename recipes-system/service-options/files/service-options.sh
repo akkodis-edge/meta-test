@@ -17,11 +17,21 @@ basedir="$(dirname ${1})" || die "Failed getting ${1} dirname"
 
 for var in ${!PPP_HOST_*}; do
 	name="${var#PPP_HOST_}"
-	echo "Enabling PPP_HOST service \"$name\""
-	if echo "${!var}" > "/etc/ppp/peers/${name}"; then
-		systemctl start "ppp-host@${name}" || error "Failed starting PPP_HOST service"
+	echo "Enabling PPP_HOST service \"host_$name\""
+	if echo "${!var}" > "/etc/ppp/peers/host_${name}"; then
+		systemctl start "ppp-host@host_${name}" || error "Failed starting PPP_HOST service"
 	else
 		error "Failed creating ppp-host profile"
+	fi
+done
+
+for var in ${!PPP_CLIENT_*}; do
+	name="${var#PPP_CLIENT_}"
+	echo "Enabling PPP_CLIENT service \"client_$name\""
+	if echo "${!var}" > "/etc/ppp/peers/client_${name}"; then
+		systemctl start "ppp-client@client_${name}" || error "Failed starting PPP_CLIENT service"
+	else
+		error "Failed creating ppp-client profile"
 	fi
 done
 

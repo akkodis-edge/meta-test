@@ -1,0 +1,9 @@
+#!/bin/sh
+if [ "$USEPEERDNS" = "1" ]; then
+	# Cleanup if left
+	nmcli c delete "dummy_${PPP_IFACE}"
+	# Add dummy interface so networkmanager adds our dns to /etc/resolv.conf
+	nmcli c add type dummy ifname "dummy_${PPP_IFACE}" ipv4.dns $DNS1 ipv4.method manual ipv4.address 0.0.0.0
+	# Route traffic through our local end
+	ip route add default via "$PPP_LOCAL"
+fi

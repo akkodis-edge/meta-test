@@ -1,0 +1,4 @@
+#!/bin/sh
+# cleanup
+nmcli c delete "dummy_${PPP_IFACE}"
+ip route delete default via "$PPP_LOCAL"
