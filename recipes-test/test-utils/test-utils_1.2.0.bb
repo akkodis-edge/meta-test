@@ -9,6 +9,10 @@ inherit systemd
 
 RDEPENDS:${PN} = "bash bc coreutils"
 
+# When building without static libs the --disable-static flag is passed to EXTRA_OECONF.
+# Flag is not supported, disable here.
+DISABLE_STATIC = ""
+
 EXTRA_OECONF = " \
 	BUILD=${WORKDIR}/build \
 	DESTDIR=${D} \

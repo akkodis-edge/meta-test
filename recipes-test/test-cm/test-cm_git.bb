@@ -6,6 +6,10 @@ SRC_URI = "git://git@github.com/akkodis-edge/test-cm.git;protocol=ssh;branch=mai
 
 inherit systemd
 
+# When building without static libs the --disable-static flag is passed to EXTRA_OECONF.
+# Flag is not supported, disable here.
+DISABLE_STATIC = ""
+
 EXTRA_OECONF = " \
 	BUILD=${WORKDIR}/build \
 	DESTDIR=${D} \

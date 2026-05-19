@@ -6,6 +6,10 @@ SRCREV ?= "e2fd8f5c90f8329e9335db30bde6216ae4bb7c0e"
 SRC_URI = "gitsm://git@github.com/akkodis-edge/loopback-test.git;protocol=ssh;branch=${BRANCH}"
 BRANCH ?= "master"
 
+# When building without static libs the --disable-static flag is passed to EXTRA_OECONF.
+# Flag is not supported, disable here.
+DISABLE_STATIC = ""
+
 EXTRA_OECONF = " \
 	BUILD=${WORKDIR}/build \
 	DESTDIR=${D} \
