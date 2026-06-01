@@ -34,7 +34,7 @@ PACKAGECONFIG = " \
 AUDIO_RDEPENDS = " \
 	gstreamer1.0 pulseaudio-server gstreamer1.0-plugins-base-audiotestsrc \
 	gstreamer1.0-plugins-good-pulseaudio gstreamer1.0-plugins-good-wavparse \
-	alsa-utils-speakertest \
+	alsa-utils \
 "
 
 DISPLAY_RDEPENDS = " \
