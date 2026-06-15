@@ -1,7 +1,7 @@
 DESCRIPTION = "Akkodis Edge test utilities"
 LICENSE = "CLOSED"
 
-SRCREV ?= "04c62a16925f981c451580a7e749e38d83a71306"
+SRCREV ?= "4eb29dab915e2ccd86b1db9fe13795a9f4da4486"
 SRC_URI = "gitsm://git@github.com/akkodis-edge/test-utils.git;protocol=ssh;branch=${BRANCH}"
 BRANCH ?= "main"
 
